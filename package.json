@@ -1,0 +1,26 @@
+{
+  "name": "24game-solver",
+  "version": "0.1.0",
+  "description": "Solve 24 game with less duplicated results.",
+  "main": "",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frank-deng/24game-solver.git"
+  },
+  "keywords": [
+    "24game",
+    "solver"
+  ],
+  "author": "frank-deng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frank-deng/24game-solver/issues"
+  },
+  "homepage": "https://github.com/frank-deng/24game-solver#readme",
+  "devDependencies": {
+    "uglify-js": ""
+  }
+}
