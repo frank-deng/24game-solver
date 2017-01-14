@@ -4,7 +4,8 @@
   "description": "Solve 24 game with less duplicated results.",
   "main": "",
   "scripts": {
-    "test": "test.js"
+	"build": "uglifyjs -c -m -o 24game-solver.min.js 24game-solver.js",
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
