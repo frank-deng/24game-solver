@@ -1,7 +1,7 @@
 {
   "name": "24game-solver",
   "version": "0.1.0",
-  "description": "Solve 24 game with less duplicated results.",
+  "description": "Solve 24 Game with less duplicated results.",
   "main": "",
   "scripts": {
 	"build": "uglifyjs -c -m -o 24game-solver.min.js 24game-solver.js",
