@@ -24,6 +24,18 @@ var enumNumbers = function(count, min, max, func){
 		}
 	}
 }
+var simpleSolver = function(a,b,c,d,goal){
+	var templates = [
+		'%d%s%d%s%d%s%d',
+		'(%d%s%d)%s%d%s%d',
+		'%d%s(%d%s%d)%s%d',
+		'%d%s%d%s(%d%s%d)',
+		'(%d%s%d%s%d)%s%d',
+		'%d%s(%d%s%d%s%d)',
+		'(%d%s%d)%s(%d%s%d)',
+	];
+	var n = [a,b,c,d];
+}
 for (var goal = 1; goal <= 99; goal++) {
 	var count = 0;
 	enumNumbers(4, 1, 13, function(a,b,c,d){
@@ -35,3 +47,4 @@ for (var goal = 1; goal <= 99; goal++) {
 	console.log(goal+'\t'+count);
 }
 
+    
