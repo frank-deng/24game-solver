@@ -35,16 +35,49 @@ var simpleSolver = function(a,b,c,d,goal){
 		'(%d%s%d)%s(%d%s%d)',
 	];
 	var n = [a,b,c,d];
+	var oper = ['+', '-', '*', '/'];
+	for (var in1 = 0; in1 < 4; in1++) {
+		for (var in2 = 0; in2 < 4; in2++) {
+			if (in1 == in2) {
+				continue;
+			}
+			for (var in3 = 0; in3 < 4; in3++) {
+				if (in1 == in2 || in1 == in3 || in2 == in3) {
+					continue;
+				}
+				in4 = 6-in1-in2-in3;
+				for (var is1 = 0; is1 < 4; is1++) {
+					for (var is2 = 0; is2 < 4; is2++) {
+						for (var is3 = 0; is3 < 4; is3++) {
+							for (var i = 0; i < templates.length; i++) {
+								expr = templates[i]
+									.replace('%d',n[in1]).replace('%d',n[in2]).replace('%d',n[in3]).replace('%d',n[in4])
+									.replace('%s',oper[is1]).replace('%s',oper[is2]).replace('%s',oper[is3])
+								result = eval('('+expr+')');
+								if (Math.abs(result - goal) < 0.0000001) {
+									return expr;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return false;
 }
 for (var goal = 1; goal <= 99; goal++) {
 	var count = 0;
 	enumNumbers(4, 1, 13, function(a,b,c,d){
 		var result = solve24game(a,b,c,d,goal);
-		if (result.length > 0) {
+		var result2 = simpleSolver(a,b,c,d,goal);
+		if (result.length > 0 && result2 !== false) {
 			count++;
+		} else if (result.length == 0 && result2 === false) {
+		} else {
+			console.log('Error: ',goal,result,result2);
 		}
 	});
 	console.log(goal+'\t'+count);
 }
 
-    
