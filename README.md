@@ -40,5 +40,5 @@ The test will check if both `solve24game()` and ordinary method have or don't ha
 
 After the test finished successfully, it will output how many pairs of 4 numbers out of 1820 pairs have answer for each goals.
 
-The test will take about 2.5 hours to finish.
+The test will take about 7.5 hours to finish.
 
