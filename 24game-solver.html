@@ -44,13 +44,18 @@ function calc24Game() {
 		result_show.innerHTML = '&nbsp;';
 		return;
 	}
-	var result = solve24game(num1, num2, num3, num4, Number(goal));
-	if (result.length == 0) {
-		result_show.innerHTML = 'No Answer.';
-	} else {
-		for (var i = 0; i < result.length; i++) {
-			result_show.innerHTML += result[i] + ' = ' + goal + '<br/>';
+	try {
+		var result = solve24game(num1, num2, num3, num4, Number(goal));
+		if (result.length == 0) {
+			result_show.innerHTML = 'No Answer.';
+		} else {
+			for (var i = 0; i < result.length; i++) {
+				result_show.innerHTML += result[i] + ' = ' + goal + '<br/>';
+			}
 		}
+	} catch(e) {
+		result_show.innerHTML = '';
+		alert(e);
 	}
 }
 		</script>

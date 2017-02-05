@@ -183,8 +183,8 @@
 
 		if (undefined === goal) {
 			goal = 24;
-		} else if (isNaN(goal) || goal < 1 || goal > 99) {
-			throw 'Goal must between 1 and 99.';
+		} else if (isNaN(goal) || goal < 0 || goal > 99) {
+			throw 'Goal must between 0 and 99.';
 		}
 
 		for (t = 0; t < TEMPLATES_ALL.length; t++) {

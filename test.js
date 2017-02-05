@@ -18,6 +18,22 @@ QUnit.test("Basic Test", function(assert) {
 		}
 		return true;
 	});
+	assert.ok(function(){
+		var expected = [
+			'(13-1-12)*8', '(13-12-1)*8', '(13-1-12)/8',
+			'(13-12-1)/8', '(1+12-13)*8', '(1+12-13)/8',
+		];
+		var got = solve24game(9,13,3,9,0);
+		if (got.length != expected.length) {
+			return false;
+		}
+		for (var i = 0; i < got.length; i++) {
+			if (-1 == expected.indexOf(got[i])) {
+				return false;
+			}
+		}
+		return true;
+	});
 });
 QUnit.test("Invalid Input Test", function(assert) {
 	assert.throws(
@@ -59,14 +75,21 @@ QUnit.test("Invalid Input Test", function(assert) {
 		function(){
 			solve24game(1,2,3,4,-1);
 		},
-		/Goal must between 1 and 99./,
+		/Goal must between 0 and 99./,
+		"Invalid goal."
+	);
+	assert.throws(
+		function(){
+			solve24game(1,2,3,4,100);
+		},
+		/Goal must between 0 and 99./,
 		"Invalid goal."
 	);
 	assert.throws(
 		function(){
 			solve24game(1,2,3,4,'as');
 		},
-		/Goal must between 1 and 99./,
+		/Goal must between 0 and 99./,
 		"Invalid goal."
 	);
 });

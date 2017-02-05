@@ -71,7 +71,7 @@ console.log('Test for missing expressions.');
 console.log('This test will last for 7.5 hours.');
 console.log('Press Ctrl-C to cancel.');
 console.log('');
-for (var goal = 1; goal <= 99; goal++) {
+for (var goal = 0; goal <= 99; goal++) {
 	var count = 0;
 	enumNumbers(4, 1, 13, function(a,b,c,d){
 		var result = solve24game(a,b,c,d,goal);
