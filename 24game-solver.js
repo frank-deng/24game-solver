@@ -175,9 +175,18 @@
 		var t, template, sort_param;
 		var i, j, k, a = [0, 0, 0, 0];
 
+		for (i = 0; i < 4; i++) {
+			if (isNaN(array[i]) || array[i] < 1 || array[i] > 13) {
+				throw 'Number must between 1 and 13.';
+			}
+		}
+
 		if (undefined === goal) {
 			goal = 24;
+		} else if (isNaN(goal) || goal < 1 || goal > 99) {
+			throw 'Goal must between 1 and 99.';
 		}
+
 		for (t = 0; t < TEMPLATES_ALL.length; t++) {
 			var sort_func = TEMPLATES_ALL[t].sort;
 			var calc_func = TEMPLATES_ALL[t].calc;

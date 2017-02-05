@@ -1,83 +1,73 @@
-var solve24game = require('./24game-solver.min');
+var solve24game = require('./24game-solver');
 
-var enumNumbers = function(count, min, max, func){
-	var nums = new Array();
-	var result = new Array();
-	for (var i = 0; i < count; i++) {
-		nums[i] = min;
-	}
-	while (nums[count-1] <= max) {
-		if (typeof(func) == 'function') {	
-			func.apply(func, nums);
+QUnit.test("Basic Test", function(assert) {
+	assert.deepEqual(solve24game(8,3,8,3), ['8/(3-8/3)']);
+	assert.deepEqual(solve24game(3,3,8,8,24), ['8/(3-8/3)']);
+	assert.deepEqual(solve24game(13,3,10,3,97), ['(13-3)*10-3']);
+	assert.deepEqual(solve24game(10,3,3,13,97), ['(13-3)*10-3']);
+	assert.ok(function(){
+		var expected = ['(9-3)*(13-9)', '(9-13)*(3-9)', '(3-9)*(9-13)', '(13-9)*(9-3)'];
+		var got = solve24game(9,13,3,9,24);
+		if (got.length != expected.length) {
+			return false;
 		}
-		nums[0]++;
-		for (var i = 0; i < count-1 && nums[i] > max; i++) {
-			nums[i] = min;
-			nums[i+1]++;
-		}
-		for (var i = 0; i < count-1; i++) {
-			if (nums[i] < nums[i+1]) {
-				for (var j = 0; j <= i; j++) {
-					nums[j] = nums[i+1];
-				}
+		for (var i = 0; i < got.length; i++) {
+			if (-1 == expected.indexOf(got[i])) {
+				return false;
 			}
 		}
-	}
-}
-var simpleSolver = function(a,b,c,d,goal){
-	var templates = [
-		'%d%s%d%s%d%s%d',
-		'(%d%s%d)%s%d%s%d',
-		'%d%s(%d%s%d)%s%d',
-		'%d%s%d%s(%d%s%d)',
-		'(%d%s%d%s%d)%s%d',
-		'%d%s(%d%s%d%s%d)',
-		'(%d%s%d)%s(%d%s%d)',
-	];
-	var n = [a,b,c,d];
-	var oper = ['+', '-', '*', '/'];
-	for (var in1 = 0; in1 < 4; in1++) {
-		for (var in2 = 0; in2 < 4; in2++) {
-			if (in1 == in2) {
-				continue;
-			}
-			for (var in3 = 0; in3 < 4; in3++) {
-				if (in1 == in2 || in1 == in3 || in2 == in3) {
-					continue;
-				}
-				in4 = 6-in1-in2-in3;
-				for (var is1 = 0; is1 < 4; is1++) {
-					for (var is2 = 0; is2 < 4; is2++) {
-						for (var is3 = 0; is3 < 4; is3++) {
-							for (var i = 0; i < templates.length; i++) {
-								expr = templates[i]
-									.replace('%d',n[in1]).replace('%d',n[in2]).replace('%d',n[in3]).replace('%d',n[in4])
-									.replace('%s',oper[is1]).replace('%s',oper[is2]).replace('%s',oper[is3])
-								result = eval('('+expr+')');
-								if (Math.abs(result - goal) < 0.0000001) {
-									return expr;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	return false;
-}
-for (var goal = 1; goal <= 99; goal++) {
-	var count = 0;
-	enumNumbers(4, 1, 13, function(a,b,c,d){
-		var result = solve24game(a,b,c,d,goal);
-		var result2 = simpleSolver(a,b,c,d,goal);
-		if (result.length > 0 && result2 !== false) {
-			count++;
-		} else if (result.length == 0 && result2 === false) {
-		} else {
-			console.log('Error: ',goal,result,result2);
-		}
+		return true;
 	});
-	console.log(goal+'\t'+count);
-}
+});
+QUnit.test("Invalid Input Test", function(assert) {
+	assert.throws(
+		function(){
+			solve24game(1,'a',2,3,24);
+		},
+		/Number must between 1 and 13./,
+		"Invalid number."
+	);
+	assert.throws(
+		function(){
+			solve24game(1);
+		},
+		/Number must between 1 and 13./,
+		"Invalid number."
+	);
+	assert.throws(
+		function(){
+			solve24game(1,3);
+		},
+		/Number must between 1 and 13./,
+		"Invalid number."
+	);
+	assert.throws(
+		function(){
+			solve24game(1,-1,2,3);
+		},
+		/Number must between 1 and 13./,
+		"Invalid number."
+	);
+	assert.throws(
+		function(){
+			solve24game(14,1,2,3);
+		},
+		/Number must between 1 and 13./,
+		"Invalid number."
+	);
+	assert.throws(
+		function(){
+			solve24game(1,2,3,4,-1);
+		},
+		/Goal must between 1 and 99./,
+		"Invalid goal."
+	);
+	assert.throws(
+		function(){
+			solve24game(1,2,3,4,'as');
+		},
+		/Goal must between 1 and 99./,
+		"Invalid goal."
+	);
+});
 
