@@ -10,7 +10,7 @@ Usage
 
 Node
 
-	var solve24game = require('./24game-solver.min');
+	var solve24game = require('24game-solver');
 
 	/*
 	The returned result contains all the expressions which calculation result equals the goal.
@@ -21,7 +21,7 @@ Node
 
 Brwoser
 
-	<script type='text/javascript' src='24game-solver.min.js'></script>
+	<script type='text/javascript' src='24game-solver.js'></script>
 	<script type='text/javascript'>
 		/*
 		The returned result contains all the expressions which calculation result equals the goal.
