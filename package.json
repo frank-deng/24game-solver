@@ -1,6 +1,6 @@
 {
   "name": "24game-solver",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Solve 24 Game with less duplicated results.",
   "main": "",
   "scripts": {
