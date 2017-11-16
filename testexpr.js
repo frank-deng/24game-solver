@@ -73,7 +73,7 @@ var simpleSolver = function(a,b,c,d,goal){
 }
 
 console.log('Test for missing expressions.');
-console.log('This test will last for 11 minutes.');
+console.log('This test will last for several hours.');
 console.log('Press Ctrl-C to cancel.');
 console.log('');
 for (var goal = 0; goal <= 99; goal++) {

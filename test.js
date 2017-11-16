@@ -4,7 +4,7 @@ var solve24game = require('./24game-solver');
 QUnit.test("Basic Test", function(assert) {
 	assert.deepEqual(solve24game(8,3,8,3), ['8/(3-8/3)']);
 	assert.deepEqual(solve24game(3,3,8,8,24), ['8/(3-8/3)']);
-	assert.deepEqual(solve24game(13,3,10,3,97), ['(13-3)*10-3']);
+	assert.deepEqual(solve24game(13,3,10,3,97), ['10*(13-3)-3']);
 	assert.deepEqual(solve24game(10,3,3,13,97), ['10*(13-3)-3']);
 	assert.ok(function(){
 		var expected = ['(9-3)*(13-9)', '(9-13)*(3-9)', '(3-9)*(9-13)', '(13-9)*(9-3)'];
