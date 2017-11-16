@@ -1,10 +1,11 @@
+global.Calc = require('./node_modules/expression-calculator/exprcalc');
 var solve24game = require('./24game-solver');
 
 QUnit.test("Basic Test", function(assert) {
 	assert.deepEqual(solve24game(8,3,8,3), ['8/(3-8/3)']);
 	assert.deepEqual(solve24game(3,3,8,8,24), ['8/(3-8/3)']);
 	assert.deepEqual(solve24game(13,3,10,3,97), ['(13-3)*10-3']);
-	assert.deepEqual(solve24game(10,3,3,13,97), ['(13-3)*10-3']);
+	assert.deepEqual(solve24game(10,3,3,13,97), ['10*(13-3)-3']);
 	assert.ok(function(){
 		var expected = ['(9-3)*(13-9)', '(9-13)*(3-9)', '(3-9)*(9-13)', '(13-9)*(9-3)'];
 		var got = solve24game(9,13,3,9,24);
@@ -40,57 +41,57 @@ QUnit.test("Invalid Input Test", function(assert) {
 		function(){
 			solve24game(1,'a',2,3,24);
 		},
-		/Number must between 1 and 13./,
-		"Invalid number."
+		new Error('Number must between 1 and 13'),
+		"String appeared as number"
 	);
 	assert.throws(
 		function(){
 			solve24game(1);
 		},
-		/Number must between 1 and 13./,
+		new Error('Number must between 1 and 13'),
 		"Invalid number."
 	);
 	assert.throws(
 		function(){
 			solve24game(1,3);
 		},
-		/Number must between 1 and 13./,
-		"Invalid number."
+		new Error('Number must between 1 and 13'),
+		"Not enough numbers, aka. undefined appeared"
 	);
 	assert.throws(
 		function(){
 			solve24game(1,-1,2,3);
 		},
-		/Number must between 1 and 13./,
-		"Invalid number."
+		new Error('Number must between 1 and 13'),
+		"Negative number provided"
 	);
 	assert.throws(
 		function(){
 			solve24game(14,1,2,3);
 		},
-		/Number must between 1 and 13./,
-		"Invalid number."
+		new Error('Number must between 1 and 13'),
+		"Larger number provided"
 	);
 	assert.throws(
 		function(){
 			solve24game(1,2,3,4,-1);
 		},
-		/Goal must between 0 and 99./,
+		new Error('Goal must between 0 and 99'),
 		"Invalid goal."
 	);
 	assert.throws(
 		function(){
 			solve24game(1,2,3,4,100);
 		},
-		/Goal must between 0 and 99./,
+		new Error('Goal must between 0 and 99'),
 		"Invalid goal."
 	);
 	assert.throws(
 		function(){
 			solve24game(1,2,3,4,'as');
 		},
-		/Goal must between 0 and 99./,
-		"Invalid goal."
+		new Error('Goal must between 0 and 99'),
+		"Invalid goal with a string."
 	);
 });
 

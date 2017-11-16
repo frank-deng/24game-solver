@@ -12,208 +12,131 @@
 	}
 }(this, function() {
 	'use strict';
-	var _swap = function($array, $a, $b) {
-		if ($a == $b) {
-			return;
-		}
-		var $temp = $array[$a];
-		$array[$a] = $array[$b];
-		$array[$b] = $temp;
-	}
-	var sort_abcd = function(n) {
-		n.sort(function(a,b){return (a > b ? 1 : -1)});
-	}
-	var sort_abc = function(n) {
-		if (n[0] > n[1]) { _swap(n, 0, 1); }
-		if (n[1] > n[2]) { _swap(n, 1, 2); }
-		if (n[0] > n[1]) { _swap(n, 0, 1); }
-	}
-	var sort_bcd = function(n) {
-		if (n[1] > n[2]) { _swap(n, 1, 2); }
-		if (n[2] > n[3]) { _swap(n, 2, 3); }
-		if (n[1] > n[2]) { _swap(n, 1, 2); }
-	}
-	var sort_ab = function(n) {
-		if (n[0] > n[1]) { _swap(n, 0, 1); }
-	}
-	var sort_bc = function(n) {
-		if (n[1] > n[2]) { _swap(n, 1, 2); }
-	}
-	var sort_cd = function(n) {
-		if (n[2] > n[3]) { _swap(n, 2, 3); }
-	}
-	var sort_ab_cd = function(n) {
-		if (n[0] > n[1]) { _swap(n, 0, 1); }
-		if (n[2] > n[3]) { _swap(n, 2, 3); }
-	}
-
-	var TEMPLATES_ALL = [
-		{expr:"%d+%d+%d+%d", sort:sort_abcd},
-		{expr:"%d+%d+%d-%d", sort:sort_abc},
-		{expr:"%d+%d-%d-%d", sort:sort_ab},
-		{expr:"%d-%d-%d-%d", sort:null},
-
-		{expr:"%d*%d*%d*%d", sort:sort_abcd},
-		{expr:"%d*%d*%d/%d", sort:sort_abc},
-		{expr:"%d*%d/%d/%d", sort:sort_ab},
-		{expr:"%d/%d/%d/%d", sort:null},
-
-		{expr:"%d+%d+%d*%d", sort:sort_ab_cd},
-		{expr:"(%d+%d+%d)*%d", sort:sort_abc},
-		{expr:"%d+(%d+%d)*%d", sort:sort_bc},
-		{expr:"(%d+%d)*(%d+%d)", sort:sort_ab_cd},
-
-		{expr:"%d+%d*%d*%d", sort:sort_bcd},
-		{expr:"(%d+%d)*%d*%d", sort:sort_ab_cd},
-		{expr:"%d*%d+%d*%d", sort:sort_ab_cd},
-		{expr:"(%d+%d*%d)*%d", sort:sort_bc},
-
-		{expr:"%d+%d+%d/%d", sort:sort_ab},
-		{expr:"%d+(%d+%d)/%d", sort:sort_bc},
-		{expr:"%d+%d/(%d+%d)", sort:sort_cd},
-		{expr:"(%d+%d+%d)/%d", sort:sort_abc},
-		{expr:"%d/(%d+%d+%d)", sort:sort_bcd},
-		{expr:"(%d+%d)/(%d+%d)", sort:sort_ab_cd},
-
-		{expr:"%d+%d/%d/%d", sort:null},
-		{expr:"(%d+%d)/%d/%d", sort:sort_ab},
-		{expr:"%d/(%d+%d)/%d", sort:sort_bc},
-		{expr:"%d/%d/(%d+%d)", sort:sort_cd},
-		{expr:"(%d+%d/%d)/%d", sort:null},
-		{expr:"%d/(%d+%d/%d)", sort:null},
-		{expr:"%d/%d+%d/%d", sort:null},
-
-		{expr:"%d-%d-%d*%d", sort:sort_cd},
-		{expr:"%d-%d*%d-%d", sort:sort_bc},
-		{expr:"%d*%d-%d-%d", sort:sort_ab},
-		{expr:"%d-(%d-%d)*%d", sort:null},
-		{expr:"(%d-%d)*%d-%d", sort:null},
-		{expr:"(%d-%d-%d)*%d", sort:null},
-		{expr:"(%d-%d)*(%d-%d)", sort:null},
-
-		{expr:"%d-%d*%d*%d", sort:sort_bcd},
-		{expr:"%d*%d*%d-%d", sort:sort_abc},
-		{expr:"(%d-%d)*%d*%d", sort:sort_cd},
-		{expr:"(%d-%d*%d)*%d", sort:sort_bc},
-		{expr:"(%d*%d-%d)*%d", sort:sort_ab},
-		{expr:"%d*%d-%d*%d", sort:sort_ab_cd},
-
-		{expr:"%d-%d-%d/%d", sort:null},
-		{expr:"%d-%d/%d-%d", sort:null},
-		{expr:"%d/%d-%d-%d", sort:null},
-		{expr:"%d-(%d-%d)/%d", sort:null},
-		{expr:"%d-%d/(%d-%d)", sort:null},
-		{expr:"(%d-%d)/%d-%d", sort:null},
-		{expr:"%d/(%d-%d)-%d", sort:null},
-		{expr:"(%d-%d-%d)/%d", sort:null},
-		{expr:"%d/(%d-%d-%d)", sort:null},
-		{expr:"(%d-%d)/(%d-%d)", sort:null},
-
-		{expr:"%d-%d/%d/%d", sort:null},
-		{expr:"%d/%d/%d-%d", sort:null},
-		{expr:"%d/%d-%d/%d", sort:null},
-		{expr:"(%d-%d)/%d/%d", sort:null},
-		{expr:"%d/(%d-%d)/%d", sort:null},
-		{expr:"%d/%d/(%d-%d)", sort:null},
-		{expr:"(%d-%d/%d)/%d", sort:null},
-		{expr:"(%d/%d-%d)/%d", sort:null},
-		{expr:"%d/(%d-%d/%d)", sort:null},
-		{expr:"%d/(%d/%d-%d)", sort:null},
-
-		{expr:"%d+%d-%d*%d", sort:sort_ab_cd},
-		{expr:"%d+%d*%d-%d", sort:sort_bc},
-		{expr:"%d+(%d-%d)*%d", sort:null},
-		{expr:"%d-(%d+%d)*%d", sort:sort_bc},
-		{expr:"(%d+%d)*%d-%d", sort:sort_ab},
-		{expr:"(%d+%d-%d)*%d", sort:sort_ab},
-		{expr:"(%d+%d)*(%d-%d)", sort:sort_ab},
-
-		{expr:"%d+%d-%d/%d", sort:sort_ab},
-		{expr:"%d+%d/%d-%d", sort:null},
-		{expr:"%d+(%d-%d)/%d", sort:null},
-		{expr:"%d+%d/(%d-%d)", sort:null},
-		{expr:"%d-(%d+%d)/%d", sort:sort_bc},
-		{expr:"%d-%d/(%d+%d)", sort:sort_cd},
-		{expr:"(%d+%d)/%d-%d", sort:sort_ab},
-		{expr:"%d/(%d+%d)-%d", sort:sort_bc},
-		{expr:"(%d+%d-%d)/%d", sort:sort_ab},
-		{expr:"%d/(%d+%d-%d)", sort:sort_bc},
-		{expr:"(%d+%d)/(%d-%d)", sort:sort_ab},
-		{expr:"(%d-%d)/(%d+%d)", sort:sort_cd},
-
-		{expr:"%d+%d*%d/%d", sort:sort_bc},
-		{expr:"(%d+%d)*%d/%d", sort:sort_ab},
-		{expr:"%d/(%d+%d)*%d", sort:sort_bc},
-		{expr:"%d*%d+%d/%d", sort:sort_ab},
-		{expr:"(%d+%d*%d)/%d", sort:sort_bc},
-		{expr:"%d/(%d+%d*%d)", sort:sort_cd},
-		{expr:"(%d+%d/%d)*%d", sort:null},
-
-		{expr:"%d-%d*%d/%d", sort:sort_bc},
-		{expr:"%d*%d/%d-%d", sort:sort_ab},
-		{expr:"(%d-%d)*%d/%d", sort:null},
-		{expr:"%d/(%d-%d)*%d", sort:null},
-		{expr:"%d*%d-%d/%d", sort:sort_ab},
-		{expr:"%d/%d-%d*%d", sort:sort_cd},
-		{expr:"(%d-%d*%d)/%d", sort:sort_bc},
-		{expr:"%d/(%d-%d*%d)", sort:sort_cd},
-		{expr:"(%d*%d-%d)/%d", sort:sort_ab},
-		{expr:"%d/(%d*%d-%d)", sort:sort_bc},
-		{expr:"(%d-%d/%d)*%d", sort:null},
-		{expr:"(%d/%d-%d)*%d", sort:null},
+	var calc = new Calc();
+	var tempRPN = [
+		[
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_OPER},
+		],
+		[
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_OPER},
+		],
+		[
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+		],
+		[
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_OPER},
+		],
+		[
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+			{type:Calc.TOKEN_VAR},
+			{type:Calc.TOKEN_OPER},
+		],
 	];
-
-	/* Init Template */
-	for (var i = 0; i < TEMPLATES_ALL.length; i++) {
-		TEMPLATES_ALL[i].calc = Function('n',('return '+TEMPLATES_ALL[i].expr+';').replace('%d','n[0]').replace('%d','n[1]').replace('%d','n[2]').replace('%d','n[3]'));
-	}
-	/* Init Template End */
-
-	return function(num1, num2, num3, num4, goal) {
-		var answer_all = [];
-		var array = [num1, num2, num3, num4], result;
-		var t, template, sort_param;
-		var i, j, k, a = [0, 0, 0, 0];
-
-		for (i = 0; i < 4; i++) {
-			if (isNaN(array[i]) || array[i] < 1 || array[i] > 13) {
-				throw 'Number must between 1 and 13.';
+	var tempExpr = [];
+	var enumTemplates = function(n0,op0){
+		for(var i=0; i<tempRPN.length; i++){
+			var rpn=tempRPN[i], n=n0.slice(0), op=op0.slice(0);
+			for (var j=0; j<rpn.length; j++){
+				switch(rpn[j].type){
+					case Calc.TOKEN_VAR:
+						rpn[j].value=n.pop();
+					break;
+					case Calc.TOKEN_OPER:
+						rpn[j].value=op.pop();
+					break;
+				}
+			}
+			var expr = calc.setRPN(rpn).getSimplifiedExpr();
+			if (-1 == tempExpr.indexOf(expr)){
+				tempExpr.push(expr);
 			}
 		}
-
-		if (undefined === goal) {
-			goal = 24;
-		} else if (isNaN(goal) || goal < 0 || goal > 99) {
-			throw 'Goal must between 0 and 99.';
-		}
-
-		for (t = 0; t < TEMPLATES_ALL.length; t++) {
-			var sort_func = TEMPLATES_ALL[t].sort;
-			var calc_func = TEMPLATES_ALL[t].calc;
-			for (i = 0; i < 4; i++) {
-				for (j = 0; j < 4; j++) {
-					if (j == i) {
-						continue;
-					}
-					for (k = 0; k < 4; k++) {
-						if (k == i || k == j) {
-							continue;
-						}
-						a[0] = array[i]; a[1] = array[j];
-						a[2] = array[k]; a[3] = array[6 - i - j - k];
-						if (typeof(sort_func) == 'function') {	
-							sort_func(a);
-						}
-						result = calc_func(a);
-						var expr = TEMPLATES_ALL[t].expr.replace('%d', a[0]).replace('%d', a[1]).replace('%d', a[2]).replace('%d', a[3]);
-						if (Math.abs(result - goal) < 0.0000001 && -1 == answer_all.indexOf(expr)) {
-							answer_all.push(expr);
-						}
-					}
+	}
+	var enumOpers = function(a,b,c,d){
+		var op = ['+', '-', '*', '/'], i,j,k;
+		for (i = 0; i < op.length; i++) {
+			for (j = 0; j < op.length; j++) {
+				for (k = 0; k < op.length; k++) {
+					enumTemplates([d,c,b,a],[op[k],op[j],op[i]]);
 				}
 			}
 		}
-		return answer_all;
+	}
+	var enumNums = function(){
+		var n = ['a','b','c','d'], i, j, k;
+		for (i = 0; i < 4; i++) {
+			for (j = 0; j < 4; j++) {
+				if (j == i) {
+					continue;
+				}
+				for (k = 0; k < 4; k++) {
+					if (k == i || k == j) {
+						continue;
+					}
+					enumOpers(n[i], n[j], n[k], n[6-i-j-k]);
+				}
+			}
+		}
+	}
+	enumNums();
+	var TEMPLATES_ALL = [];
+	for (var i = 0; i < tempExpr.length; i++) {
+		TEMPLATES_ALL.push({
+			calc: Function('n',('return '+tempExpr[i]+';').replace('a','n[0]').replace('b','n[1]').replace('c','n[2]').replace('d','n[3]')),
+			expr: tempExpr[i],
+		});
+	}
+	
+	return function(a, b, c, d, goal) {
+		var n = [a,b,c,d];
+		for (i = 0; i < 4; i++) {
+			if (isNaN(n[i]) || n[i] < 1 || n[i] > 13) {
+				throw new Error('Number must between 1 and 13');
+			}
+		}
+		if (undefined === goal) {
+			goal = 24;
+		} else if (isNaN(goal) || goal < 0 || goal > 99) {
+			throw new Error('Goal must between 0 and 99');
+		}
+		var result = [];
+		for (var i=0; i<TEMPLATES_ALL.length; i++){
+			if (Math.abs(TEMPLATES_ALL[i].calc(n)-goal)<0.00001){
+				var expr = TEMPLATES_ALL[i].expr.replace('a', n[0]).replace('b', n[1]).replace('c', n[2]).replace('d', n[3]);
+				if (-1 == result.indexOf(expr)){
+					result.push(expr);
+				}
+			}
+		}
+		return result;
 	}
 }));
 
