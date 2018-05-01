@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name='viewport' id='viewport' content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'/>
+		<meta charset='UTF-8'/>
+		<title>24 Game Solver</title>
+		<style type='text/css'>
+body{max-width:800px;margin:0 auto;padding:40px 10px 10px 10px;font-family:serif;font-family:sans;text-align:center;}
+h1{text-align:center;}
+select{height:30px;}
+input[type=text]{line-height:30px;padding:0 6px;position:relative;z-index:1000;}
+input[type=button],button{line-height:30px;position:relative;z-index:1000;}
+#goal{padding:0 4px;}
+
+ribbon{
+	display:block;
+	position:absolute;
+	top:0;
+	right:0;
+	background-color: #aa0000;
+	box-shadow: 0 0 5px 2px #888888;
+	overflow: hidden;
+	user-select:none;
+	user-drag:none;
+}
+ribbon a{
+	font-size: 12px;
+	font-weight: bold;
+	overflow: hidden;
+	display: block;
+	color: #ffffff;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	border-top: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+	margin: 2px 0;
+	width: 260px;
+	line-height: 30px;
+}
+@media only screen and (min-width: 600px){
+	ribbon {
+		transform-origin:50px 50%;
+		transform:translate(83px, 0px) rotate(45deg);
+	}
+}
+		</style>
+		<script type='text/javascript' src='exprcalc.min.js'></script>
+		<script type='text/javascript' src='24game-solver.js'></script>
+	</head>
+	<body>
+		<ribbon><a href='https://github.com/frank-deng/bulls-cows-solver/'>Fork me on GitHub</a></ribbon>
+		<h1>24 Game Solver</h1>
+		<form id='form_24game_solver'>
+			<p>
+				<select name='num[]'>
+					<option value='1'>1</option>
+					<option value='2'>2</option>
+					<option value='3'>3</option>
+					<option value='4'>4</option>
+					<option value='5'>5</option>
+					<option value='6'>6</option>
+					<option value='7'>7</option>
+					<option value='8'>8</option>
+					<option value='9'>9</option>
+					<option value='10'>10</option>
+					<option value='11'>11</option>
+					<option value='12'>12</option>
+					<option value='13'>13</option>
+				</select>
+				<select name='num[]'>
+					<option value='1'>1</option>
+					<option value='2'>2</option>
+					<option value='3'>3</option>
+					<option value='4'>4</option>
+					<option value='5'>5</option>
+					<option value='6'>6</option>
+					<option value='7'>7</option>
+					<option value='8'>8</option>
+					<option value='9'>9</option>
+					<option value='10'>10</option>
+					<option value='11'>11</option>
+					<option value='12'>12</option>
+					<option value='13'>13</option>
+				</select>
+				<select name='num[]'>
+					<option value='1'>1</option>
+					<option value='2'>2</option>
+					<option value='3'>3</option>
+					<option value='4'>4</option>
+					<option value='5'>5</option>
+					<option value='6'>6</option>
+					<option value='7'>7</option>
+					<option value='8'>8</option>
+					<option value='9'>9</option>
+					<option value='10'>10</option>
+					<option value='11'>11</option>
+					<option value='12'>12</option>
+					<option value='13'>13</option>
+				</select>
+				<select name='num[]'>
+					<option value='1'>1</option>
+					<option value='2'>2</option>
+					<option value='3'>3</option>
+					<option value='4'>4</option>
+					<option value='5'>5</option>
+					<option value='6'>6</option>
+					<option value='7'>7</option>
+					<option value='8'>8</option>
+					<option value='9'>9</option>
+					<option value='10'>10</option>
+					<option value='11'>11</option>
+					<option value='12'>12</option>
+					<option value='13'>13</option>
+				</select>
+			</p>
+			<p>
+				Goal: <input type='text' name='goal' size='2' maxlength='2' value='24'/>
+				<button>Calculate</button>
+			</p>
+			<p id='calc24_result'>&nbsp;</p>
+		</form>
+	</body>
+	<script type='text/javascript'>
+var result_show = document.getElementById('calc24_result');
+document.getElementById('form_24game_solver').onsubmit = function(e) {
+	var num_elem = document.getElementsByName('num[]');
+	var num1 = Number(num_elem[0].value);
+	var num2 = Number(num_elem[1].value);
+	var num3 = Number(num_elem[2].value);
+	var num4 = Number(num_elem[3].value);
+	var goal_elem = document.getElementsByName('goal')[0];
+	var goal = goal_elem.value;
+	result_show.innerHTML = '';
+
+	if (isNaN(goal) || goal < 0 || goal > 99 || goal == '') {
+		goal_elem.value = 24;
+		result_show.innerHTML = '';
+		window.alert('Goal must between 0 and 99.');
+		return false;
+	}
+	try {
+		var result = solve24game(num1, num2, num3, num4, Number(goal));
+		if (result.length == 0) {
+			result_show.innerHTML = 'No Answer.';
+		} else {
+			for (var i = 0; i < result.length; i++) {
+				result_show.innerHTML += result[i] + ' = ' + Number(goal) + '<br/>';
+			}
+		}
+	} catch(e) {
+		result_show.innerHTML = '';
+		alert(e);
+	}
+	return false;
+}
+	</script>
+</html>
+
