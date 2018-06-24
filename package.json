@@ -1,8 +1,8 @@
 {
   "name": "24game-solver",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Solve 24 Game with less duplicated results.",
-  "main": "",
+  "main": "24game-solver.js",
   "scripts": {
     "test": "qunit-cli test.js && node testexpr.js"
   },
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/frank-deng/24game-solver#readme",
   "dependencies": {
-    "expression-calculator": ""
+    "expression-calculator": "0.0.5"
   },
   "devDependencies": {
     "qunit-cli": ""
