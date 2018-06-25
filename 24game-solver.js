@@ -12,6 +12,17 @@
 	}
 }(this, function() {
 	'use strict';
+	var Calc = undefined;
+	try {
+		Calc = require('expression-calculator');
+	} catch(e) {
+		if ('undefined' !== typeof(global) && global.Calc) {
+			Calc = global.Calc
+		} else if ('undefined' !== typeof(window) && window.Calc) {
+			Calc = window.Calc;
+		}
+	}
+
 	var tempRPN = [
 		[
 			{type:Calc.TOKEN_NUM},

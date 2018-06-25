@@ -1,4 +1,3 @@
-global.Calc = require('expression-calculator');
 var solve24game = require('./24game-solver');
 
 var enumNumbers = function(count, min, max, func){

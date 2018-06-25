@@ -10,7 +10,6 @@ Usage
 
 Node
 
-	global.Calc = require('expression-calculator');
 	var solve24game = require('24game-solver');
 
 	/*
