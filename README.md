@@ -5,6 +5,8 @@ Solve 24 game with less duplicated results.
 
 Web based example can be launched from [https://frank-deng.github.io/24game-solver/index.html](https://frank-deng.github.io/24game-solver/index.html).
 
+Package [expression-calculator](https://www.npmjs.com/package/expression-calculator) is required for calculating RPN expressions.
+
 Usage
 -----
 
@@ -21,6 +23,7 @@ Node
 
 Brwoser
 
+	<script type='text/javascript' src='exprcalc.min.js'></script>
 	<script type='text/javascript' src='24game-solver.js'></script>
 	<script type='text/javascript'>
 		/*
@@ -30,6 +33,8 @@ Brwoser
 		*/
 		var result = solve24game(a, b, c, d, goal);
 	</script>
+
+`exprcalc.min.js` required by the code above can be downloaded from [here](https://frank-deng.github.io/expression-calculator/exprcalc.min.js).
 
 Test Case
 ---------
