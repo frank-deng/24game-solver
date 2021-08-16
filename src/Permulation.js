@@ -22,6 +22,9 @@ export default class Permulation{
         return this;
     }
     __swap(a,b){
+        if(a==b){
+            return this;
+        }
         let temp=this.__arr[a];
         this.__arr[a]=this.__arr[b];
         this.__arr[b]=temp;
@@ -43,8 +46,6 @@ export default class Permulation{
     }
     next(){
         let arrLength=this.__arr.length-1;
-
-        //处理完成了
         while(this.__stack.length){
             if(this.__top().start>arrLength){
                 let value=this.__arr.slice();
@@ -69,7 +70,7 @@ export default class Permulation{
             }
             
             let {start,i}=this.__top();
-            if(start!=i && this.__arr[start] === this.__arr[i]){
+            if(start!=i && (this.__arr[start] === this.__arr[i] || this.__arr[i] === this.__arr[i-1])){
                 this.__top().i++;
                 continue;
             }
