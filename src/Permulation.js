@@ -2,18 +2,15 @@
 计算全排列有递归算法，但此处需要使用状态机方式实现，故使用栈代替递归
  */
 export default class Permulation{
-    constructor(length){
-        if(isNaN(length) || length<1){
-            throw new TypeError('Length must be greater than 0');
+    constructor(arr){
+        if(!Array.isArray(arr) || !arr.length){
+            throw new TypeError('Non-empty array required.');
         }
-        this.__arr=Array(length);
+        this.__arrOrig=arr.slice();
         this.__reset();
     }
     __reset(){
-        let len=this.__arr.length;
-        for(let i=0; i<len; i++){
-            this.__arr[i]=i;
-        }
+        this.__arr=this.__arrOrig.slice();
         this.__stack=[
             {
                 start:0,
@@ -71,8 +68,13 @@ export default class Permulation{
                 continue;
             }
             
-            this.__swap(this.__top().start,this.__top().i);
-            this.__push(this.__top().start+1);
+            let {start,i}=this.__top();
+            if(start!=i && this.__arr[start] === this.__arr[i]){
+                this.__top().i++;
+                continue;
+            }
+            this.__swap(start,i);
+            this.__push(start+1);
         }
 
         this.__reset();
