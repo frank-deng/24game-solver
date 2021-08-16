@@ -22,6 +22,11 @@
     "url": "https://github.com/frank-deng/24game-solver/issues"
   },
   "homepage": "https://github.com/frank-deng/24game-solver#readme",
+  "browserslist": [
+    "> 0.1%",
+    "not dead",
+    "ie < 11"
+  ],
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
