@@ -23,10 +23,43 @@ export function rpn2bitree(template,nums=[],opers=[]){
             stackMain.push({
                 left,
                 right,
-                oper,
-                value:null
+                oper
             });
         }
     }
     return stackMain[0];
+}
+export function calculateTree(tree){
+    const _proc=(item)=>{
+        let vLeft=null, vRight=null;
+        if('object'==typeof(item.left)){
+            vLeft=_proc(item.left);
+        }else{
+            vLeft=item.left;
+        }
+        if('object'==typeof(item.right)){
+            vRight=_proc(item.right);
+        }else{
+            vRight=item.right;
+        }
+
+        if(null===vLeft || null===vRight){
+            return  null;
+        }
+
+        switch(item.oper){
+            case '+':
+                return vLeft+vRight;
+            case '-':
+                return vLeft-vRight;
+            case '*':
+                return vLeft*vRight;
+            case '/':
+                if(!vRight){
+                    return null;
+                }
+                return vLeft/vRight;
+        }
+    }
+    return _proc(tree);
 }
