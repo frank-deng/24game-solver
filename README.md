@@ -14,24 +14,24 @@ Node
 
 	/*
 	The returned result contains all the expressions which calculation result equals the goal.
-	Parameter a, b, c, d are numbers between 1 and 13
+	Array parameter [a, b, c, d] are numbers between 1 and 13
 	Parameter goal is the expected calculation result, default is 24.
 	*/
-	const result = solve24game(a, b, c, d, goal);
+	const result = solve24game([a, b, c, d], goal);
 
 Brwoser
 
-	<script type='text/javascript' src='24game-solver.js'></script>
+	<script type='text/javascript' src='dist/24game-solver.js'></script>
 	<script type='text/javascript'>
 		/*
 		The returned result contains all the expressions which calculation result equals the goal.
-		Parameter a, b, c, d are numbers between 1 and 13
+		Array parameter [a, b, c, d] are numbers between 1 and 13
 		Parameter goal is the expected calculation result, default is 24.
 		*/
-		var result = solve24game(a, b, c, d, goal);
+		var result = solve24game([a, b, c, d], goal);
 	</script>
 
 Test Case
 ---------
 
-Run `npm test` to run the test case.
+Run `npm test` to run the test cases.

@@ -12,8 +12,11 @@
 		<h1>24 Game Solver</h1>
 		<form id='form_24game_solver'>
 			<p>
-                <% for(let i=0; i<4; i++){ %>
+                <% for(let i=0; i<6; i++){ %>
 				<select name='num[]'>
+					<% if(i>=3){ %>
+						<option value='0'>N/A</option>
+					<% } %>
 					<option value='1'>1</option>
 					<option value='2'>2</option>
 					<option value='3'>3</option>
