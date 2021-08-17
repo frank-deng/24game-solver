@@ -3,7 +3,7 @@
 
 Solve 24 game with less duplicated results.
 
-[Demo page](https://frank-deng.github.io/24game-solver/index.html).
+[Demo page](https://frank-deng.github.io/24game-solver/index.html)
 
 Usage
 -----
