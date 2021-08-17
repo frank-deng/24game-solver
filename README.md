@@ -11,25 +11,22 @@ Usage
 Node
 
 	const solve24game = require('24game-solver');
-
-	/*
-	The returned result contains all the expressions which calculation result equals the goal.
-	Array parameter [a, b, c, d] are numbers between 1 and 13
-	Parameter goal is the expected calculation result, default is 24.
-	*/
 	const result = solve24game([a, b, c, d], goal);
 
 Brwoser
 
 	<script type='text/javascript' src='dist/24game-solver.js'></script>
 	<script type='text/javascript'>
-		/*
-		The returned result contains all the expressions which calculation result equals the goal.
-		Array parameter [a, b, c, d] are numbers between 1 and 13
-		Parameter goal is the expected calculation result, default is 24.
-		*/
 		var result = solve24game([a, b, c, d], goal);
 	</script>
+
+API
+---
+
+`solve24game(nums,goal)`
+
+* `nums` - An array of numbers between 1 and 13, array length must between 3 and 6.
+* `goal` - A number between 0 and 99.
 
 Test Case
 ---------
