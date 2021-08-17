@@ -1,7 +1,8 @@
 import solve24game from './index';
+import Calc from 'expression-calculator';
 
 function calcStr(str){
-    return new Function(`return ${str};`)();
+    return new Calc(str).calc();
 }
 describe('24game test',function(){
     it('1,2,3,4',function(){
