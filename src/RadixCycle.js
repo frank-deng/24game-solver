@@ -1,10 +1,16 @@
 export default class RadixCycle{
     constructor(radix,count){
-        if(isNaN(radix) || radix<=2){
-            throw new TypeError('Radix must be a number greater than 1');
+        if(isNaN(radix)){
+            throw new TypeError('Radix must be a number');
         }
-        if(isNaN(count) || count<=0){
-            throw new TypeError('Count must be a number greater than 0');
+        if(isNaN(count)){
+            throw new TypeError('Count must be a number');
+        }
+        if(radix<2){
+            throw new RangeError('Radix must be greater than 1');
+        }
+        if(count<1){
+            throw new RangeError('Count must be greater than 0');
         }
         this.__radix=radix;
         this.__counter=Array(count);

@@ -1,18 +1,28 @@
 import assert from 'assert';
 import {
-    RPN_TEMPLATE_LIST,
-    rpn2bitree,
-    calculateTree
+    RPNPermulation,
+    RPNTree
 }from './rpn';
 
 describe('RPN test',function(){
+    it('RPN template permulation',function(){
+        assert.deepStrictEqual([
+            ...new RPNPermulation(4)
+        ],[
+            'nnnn###',
+            'nnn#n##',
+            'nnn##n#',
+            'nn#nn##',
+            'nn#n#n#'
+        ])
+    });
     it('Generate tree',function(){
         assert.deepStrictEqual(
-            rpn2bitree(
-                RPN_TEMPLATE_LIST[0],
+            new RPNTree(
+                'nnnn###',
                 [1,2,3,4],
                 ['+','+','+']
-            ),{
+            ).toJSON(),{
                 left: 1,
                 right: {
                     left: 2,
@@ -27,11 +37,11 @@ describe('RPN test',function(){
             }
         );
         assert.deepStrictEqual(
-            rpn2bitree(
-                RPN_TEMPLATE_LIST[0],
+            new RPNTree(
+                'nnnn###',
                 [1,2,3,4],
                 ['+','+','-']
-            ),{
+            ).toJSON(),{
                 left: 1,
                 right: {
                     left: 2,
@@ -48,33 +58,17 @@ describe('RPN test',function(){
     });
     it('Calculate tree',function(){
         assert.strictEqual(
-            calculateTree(rpn2bitree(
-                RPN_TEMPLATE_LIST[0],
-                [1,2,3,4],
-                ['+','+','+']
-            )),
+            new RPNTree('nnnn###',[1,2,3,4],['+','+','+']).calc(),
             10
         );
         assert.strictEqual(
-            calculateTree(rpn2bitree(
-                RPN_TEMPLATE_LIST[0],
-                [1,2,3,4],
-                ['+','+','-']
-            )),
+            new RPNTree('nnnn###',[1,2,3,4],['+','+','-']).calc(),
             -8
         );
     });
     it('Zero division',function(){
         assert.strictEqual(
-            calculateTree({
-                left:1,
-                right:{
-                    left:1,
-                    right:1,
-                    oper:'-'
-                },
-                oper:'/'
-            }),
+            new RPNTree('nnnn###',[1,2,3,0],['/','+','+']).calc(),
             null
         );
     });
