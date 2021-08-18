@@ -25,7 +25,7 @@ document.getElementById('form_24game_solver').onsubmit = function(e) {
 			result_show.innerHTML = 'No Answer.';
 		} else {
 			for (let item of result) {
-				result_show.innerHTML += `<span>${item} = ${goal}</span>`;
+				result_show.innerHTML += `<span>${item}</span>`;
 			}
 		}
 	} catch(e) {

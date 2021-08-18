@@ -1,5 +1,5 @@
 body{
-	padding:50px 10px 10px 10px;
+	padding:50px 0 0 0;
 	margin:0;
 	font-family:微软雅黑,sans;
 	text-align:center;
@@ -7,7 +7,7 @@ body{
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
-	align-items: center;
+	align-items: stretch;
 	position: absolute;
 	left:0;
 	right:0;
@@ -42,17 +42,26 @@ h1{
 		height:30px;position:relative;z-index:1000;
 	}
 }
-#calc24_result{
+.resultContainer{
 	flex:auto;
-	margin-top:10px;
-	width: auto;
-	max-width: 800px;
+	margin-top:30px;
+	padding:0 10px 10px 10px;
 	overflow: auto;
 	text-align: center;
-	> span{
-		display:inline-block;
-		min-width:150px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	#calc24_result{
 		text-align: left;
+		max-width: 800px;
+		> span{
+			display:inline-block;
+			vertical-align: top;
+			min-width:150px;
+			margin:0 4px;
+			text-align: center;
+		}
 	}
 }
 
