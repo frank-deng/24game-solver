@@ -9,7 +9,7 @@ document.getElementById('form_24game_solver').onsubmit = function(e) {
 			nums.push(value);
 		}
 	}
-	var goal = goal_elem.value;
+	let goal = goal_elem.value;
 	result_show.innerHTML = '';
 
 	if (isNaN(goal) || goal < 0 || goal > 99 || !goal) {
@@ -18,13 +18,14 @@ document.getElementById('form_24game_solver').onsubmit = function(e) {
 		window.alert('Goal must between 0 and 99.');
 		return false;
 	}
+	goal=Number(goal);
 	try {
-		var result = solve24game(nums, Number(goal));
+		var result = solve24game(nums, goal);
 		if (result.length == 0) {
 			result_show.innerHTML = 'No Answer.';
 		} else {
 			for (let item of result) {
-				result_show.innerHTML += item + ' = ' + Number(goal) + '<br/>';
+				result_show.innerHTML += `<span>${item} = ${goal}</span>`;
 			}
 		}
 	} catch(e) {

@@ -11,34 +11,28 @@
 		<ribbon><a href='https://github.com/frank-deng/24game-solver/'>Fork me on GitHub</a></ribbon>
 		<h1>24 Game Solver</h1>
 		<form id='form_24game_solver'>
-			<p>
-                <% for(let i=0; i<6; i++){ %>
-				<select name='num[]'>
-					<% if(i>=3){ %>
-						<option value='0'>N/A</option>
-					<% } %>
-					<option value='1'>1</option>
-					<option value='2'>2</option>
-					<option value='3'>3</option>
-					<option value='4'>4</option>
-					<option value='5'>5</option>
-					<option value='6'>6</option>
-					<option value='7'>7</option>
-					<option value='8'>8</option>
-					<option value='9'>9</option>
-					<option value='10'>10</option>
-					<option value='11'>11</option>
-					<option value='12'>12</option>
-					<option value='13'>13</option>
-				</select>
-                <% } %>
-			</p>
-			<p>
-				Goal: <input type='text' name='goal' size='2' maxlength='2' value='24'/>
-				<button>Calculate</button>
-			</p>
-			<p id='calc24_result'>&nbsp;</p>
+			<% for(let i=0; i<6; i++){ %><select name='num[]'>
+				<% if(i>=3){ %>
+					<option value='0'>N/A</option>
+				<% } %>
+				<option value='1'>1</option>
+				<option value='2'>2</option>
+				<option value='3'>3</option>
+				<option value='4'>4</option>
+				<option value='5'>5</option>
+				<option value='6'>6</option>
+				<option value='7'>7</option>
+				<option value='8'>8</option>
+				<option value='9'>9</option>
+				<option value='10'>10</option>
+				<option value='11'>11</option>
+				<option value='12'>12</option>
+				<option value='13'>13</option>
+			</select><% } %>
+			<div class='rowGoal'>Goal: <input type='text' name='goal' size='2' maxlength='2' value='24'/></div>
+			<button>Calculate</button>
 		</form>
+		<div id='calc24_result'>&nbsp;</div>
 	</body>
 <% if('development'==(env.NODE_ENV||'').trim()){ %>
     <script src='__index__.js'></script>

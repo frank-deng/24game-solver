@@ -1,28 +1,57 @@
 body{
-	max-width:800px;
-	margin:0 auto;
-	padding:40px 10px 10px 10px;
+	padding:50px 10px 10px 10px;
+	margin:0;
 	font-family:微软雅黑,sans;
 	text-align:center;
 	user-select: none;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	position: absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
 }
 h1{
+	flex:none;
+	margin:0 0 10px 0;
 	text-align:center;
 }
-select,input{
-    line-height:30px;
-    height:30px;
-    position:relative;
-    z-index:1000;
-    padding:0 4px;
-    box-sizing: border-box;
-    outline: none;
+#form_24game_solver{
+	flex:none;
+	select,input{
+		line-height:30px;
+		height:30px;
+		position:relative;
+		z-index:1000;
+		padding:0 4px;
+		box-sizing: border-box;
+		outline: none;
+	}
+	select{
+		display: inline-block;
+		vertical-align: top;
+		margin:0 2px 4px 2px;
+	}
+	.rowGoal{
+		margin:4px 0;
+	}
+	input[type=button],button{
+		height:30px;position:relative;z-index:1000;
+	}
 }
-input[type=button],button{
-	height:30px;position:relative;z-index:1000;
-}
-#goal{
-    padding:0 4px;
+#calc24_result{
+	margin-top:10px;
+	max-width: 800px;
+	overflow: auto;
+	> span{
+		display:inline-block;
+		vertical-align: top;
+		min-width:150px;
+		text-align: left;
+	}
 }
 
 ribbon{
@@ -51,6 +80,9 @@ ribbon{
 	}
 }
 @media only screen and (min-width: 600px){
+	body{
+		padding-top:20px;
+	}
 	ribbon {
 		transform-origin:50px 50%;
 		transform:translate(83px, 0px) rotate(45deg);
